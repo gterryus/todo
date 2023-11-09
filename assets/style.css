@@ -1,0 +1,12 @@
+.main-login{
+    position: absolute;
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.card-login{
+    width: 350px;
+}
