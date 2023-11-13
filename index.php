@@ -1,3 +1,9 @@
+<?php
+if (isset($_COOKIE['login_user'])) {
+    header('Location: todo-app.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -31,17 +37,23 @@
 
             <div class="card card-login">
                 <div class="card-body">
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Username*</label>
-                        <input type="text" class="form-control" placeholder="johndoe"/>
-                    </div>
-                    
-                    <div class="form-group mb-3">
-                        <label class="mb-2">Password*</label>
-                        <input type="text" class="form-control" placeholder="Type your password"/>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <?php
+                        $err = isset($_GET['err']) ? $_GET['err'] : null;
+                        echo '<p class="text-danger">' . $err . '</p>';
+                    ?>
+                    <form method="post" action="AuthenticationProcess.php">
+                        <div class="form-group mb-3">
+                            <label class="mb-2">Username*</label>
+                            <input type="text" name="username" class="form-control" placeholder="johndoe" required/>
+                        </div>
+                        
+                        <div class="form-group mb-3">
+                            <label class="mb-2">Password*</label>
+                            <input type="password" name="password" class="form-control" placeholder="Type your password" required/>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
                 </div>
             </div>
         </div>
