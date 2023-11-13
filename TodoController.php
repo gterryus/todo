@@ -52,6 +52,25 @@ class TodoController {
         }
     }
 
+    public function create($title, $fileName){
+        if($fileName != NULL){
+            $conTodo = "VALUE ('".$title."', '".$fileName."')";
+        }else{
+            $conTodo = "VALUE ('".$title."')";
+        }
+
+        $query = $this->dbConnection->createTodo($conTodo);
+
+        try {
+            $query->execute();
+            $message = "Insert row successfull!";
+            header("Location: todo-app.php?message=" . urlencode($message));
+            exit();
+        } catch (\PDOException $e) {
+            throw $e;
+        }
+    }
+
     public function delete($id){
         $conTodo = "WHERE id_todo = " . $id;
         $query = $this->dbConnection->dropTodo($conTodo);
@@ -81,6 +100,30 @@ if (isset($_GET['action'])) {
         $message = "Invalid action method specified.";
         header("Location: todo-app.php?message=" . urlencode($message));
     }
+}
+
+
+if (isset($_GET['create'])) {
+
+    if (!empty($_FILES['todoFile']['name'])) {
+        $targetDirectory = 'assets/img/';
+        $targetFile = $targetDirectory . basename($_FILES['todoFile']['name']);
+        $uploadSuccess = move_uploaded_file($_FILES['todoFile']['tmp_name'], $targetFile);
+
+        if (!$uploadSuccess) {
+            $message = "Error uploading the file.";
+            header("Location: todo-app.php?message=" . urlencode($message));
+            exit();
+        }
+    } else {
+        $targetFile = null;
+    }
+
+    $todoTitle  = $_POST['todoText'];
+    $todoFileName  = $_POST['todoText'];
+
+    $className = new TodoController();
+    $className->create($todoTitle, $todoFileName);
 }
 
 if (isset($_GET['delete'])) {

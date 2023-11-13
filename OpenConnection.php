@@ -58,4 +58,11 @@ class OpenConnection {
             return $query;
         }
     }
+
+    public function createTodo($conTodo = "") {
+        if ($this->connection instanceof \PDO) {
+            $query = $this->connection->prepare("INSERT INTO todo(title, create_date) " . $conTodo);
+            return $query;
+        }
+    }
 }

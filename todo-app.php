@@ -58,7 +58,7 @@ $full_name = $datauser['first_name'] . ' ' . $datauser['last_name'];
                         echo '<p class="text-danger">' . $message . '</p>';
                     ?>
 
-                    <form action="./TodoController.php?action=createTodo" method="post">
+                    <form action="TodoController.php?create" method="post">
                         <div class="form-group mb-3">
                             <label class="mb-2">Upload a banner</label>
                             <input type="file" class="form-control" placeholder="Write your next activities" name="todoFile" />
