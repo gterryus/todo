@@ -51,4 +51,40 @@ class TodoController {
             throw $e;
         }
     }
+
+    public function delete($id){
+        $conTodo = "WHERE id_todo = " . $id;
+        $query = $this->dbConnection->dropTodo($conTodo);
+
+        try {
+            $query->execute();
+            $message = "Delete row successfull!";
+            header("Location: todo-app.php?message=" . urlencode($message));
+            exit();
+        } catch (\PDOException $e) {
+            throw $e;
+        }
+    }
+}
+
+if (isset($_GET['action'])) {
+    $action = $_GET['action'];
+
+    $className = new TodoController();
+
+    if (method_exists($className, $action)) {
+        $passData = $_GET;
+        unset($passData['action']);
+
+        $className->$action($passData);
+    } else {
+        $message = "Invalid action method specified.";
+        header("Location: todo-app.php?message=" . urlencode($message));
+    }
+}
+
+if (isset($_GET['delete'])) {
+    $idToDelete  = $_GET['delete'];
+    $className = new TodoController();
+    $className->delete($idToDelete);
 }

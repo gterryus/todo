@@ -51,4 +51,11 @@ class OpenConnection {
             return $query;
         }
     }
+
+    public function dropTodo($conTodo = "") {
+        if ($this->connection instanceof \PDO) {
+            $query = $this->connection->prepare("DELETE FROM todo " . $conTodo);
+            return $query;
+        }
+    }
 }

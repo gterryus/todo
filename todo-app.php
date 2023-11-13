@@ -54,8 +54,8 @@ $full_name = $datauser['first_name'] . ' ' . $datauser['last_name'];
                 <div class="card-body">
                     <h3>Setup your to do list</h3>
                     <?php
-                        $err = isset($_GET['err']) ? $_GET['err'] : null;
-                        echo '<p class="text-danger">' . $err . '</p>';
+                        $message = isset($_GET['message']) ? $_GET['message'] : null;
+                        echo '<p class="text-danger">' . $message . '</p>';
                     ?>
 
                     <form action="./TodoController.php?action=createTodo" method="post">
